@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Attendance Report</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+
+      h1 {
+        text-align: center;
+        margin-top: 50px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 30px;
+      }
+
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+      }
+
+      th {
+        background-color: #f2f2f2;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Result Report : {{student}}</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Subject Name</th>
+          <th>Assignment Mark</th>
+          <th>Exam Mark</th>
+          <th>Total Mark</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for i in result %}
+        <tr>
+          <td>{{ i.id }}</td>
+          <td>{{ i.subject_id.name }}</td>
+          <td class="text-center">{{ i.assignment_mark }}</td>
+          <td class="text-center">{{ i.exam_mark }}</td>
+          <td class="text-center">{{ i.assignment_mark|add:i.exam_mark }}</td>
+          <td class="text-center">
+            {% if i.assignment_mark|add:i.exam_mark >= 50 %}
+            <span class="badge badge-success">PASS</span>
+            {% else %}
+            <span class="badge badge-danger">FAIL</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>

@@ -1,0 +1,86 @@
+{% extends 'base.html' %} {% block content %} 
+
+
+{% include 'includes/messages.html' %}
+
+
+<div class="row">
+  <div class="col-sm-12">
+    <div class="card">
+      <div class="card-body">
+        <form method="POST" action="{% url 'student_send_assignment' %}" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="col-12">
+            <h5 class="form-title">
+              <span>Send Assignment</span>
+            </h5>
+          </div>
+
+          {% if messages %} {% for message in messages %} {% if message.tags == 'error' %}
+          <div
+            class="alert alert-warning alert-dismissible fade show"
+            role="alert"
+          >
+            {{message}}
+            <button
+              type="button"
+              class="close"
+              data-dismiss="alert"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          {% endif %} {% endfor %} {% endif %} {% if messages %} {% for message in messages %} {% if message.tags == 'success' %}
+          <div
+            class="alert alert-warning alert-dismissible fade show"
+            role="alert"
+          >
+            {{message}}
+            <button
+              type="button"
+              class="close"
+              data-dismiss="alert"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          {% endif %} {% endfor %} {% endif %}
+
+          <div class="col-sm-12">
+            <div class="form-group">
+              <label>Lesson Title</label>
+              <input
+                type="text"
+                class="form-control"
+                name="lesson_title"
+                value = "{{lesson.lesson_title}}"
+                readonly
+                required
+              />
+            </div>
+          </div>
+
+          <input type="text" class="form-control" name = "lesson_id" value = "{{lesson.id}}" required hidden/>
+          <input type="text" class="form-control" name = "student_id" value = "{{student.id}}"required hidden/>
+
+          <div class="col-sm-12">
+            <div class="form-group">
+              <label>Upload Your Assignment Here</label>
+              <input type="file" class="form-control" name="submission_file" required/>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary btn-block">
+              Send assignment
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,32 @@
+{% extends 'base.html' %} {% block content %} {% include
+'includes/messages.html'%} {% for j in subject %}
+<div class="col-auto text-right float-right ml-auto">
+  <a href="{% url 'add_notes' j.id %}" class="btn btn-success"
+    ><i class="fas fa-plus"></i
+  ></a>
+</div>
+<h5 class="text-center mb-5">Mini Notes: {{j.name}}</h5>
+<div class="container">
+  <div class="row">
+    {% for i in notes %}
+    <div class="col-md-4">
+      <div class="card shadow-lg">
+        <div class="card-body">
+          <h5 class="card-title">{{i.topic}}</h5>
+          <p class="card-text">{{i.content}}</p>
+          <p class="card-text mt-3">Created at: {{i.created_at}}</p>
+          <div class="d-flex justify-content-end align-items-center">
+            <a
+              href="{% url 'delete_notes' j.id i.id %}"
+              onclick="return confirm('Are you sure to delete?');"
+              class="btn btn-danger"
+              >Delete</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %} {% endfor %}
+  </div>
+</div>
+{% endblock content %}

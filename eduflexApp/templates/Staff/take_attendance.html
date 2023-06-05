@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="content container-fluid">
+    <div class="page-header">
+      <div class="row align-items-center">
+        <div class="col">
+          <h3 class="page-title">Take Attendance</h3>
+          <ul class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="subjects.html">Attendance</a>
+            </li>
+            <li class="breadcrumb-item active">Take Attendance</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  
+    
+    {% include 'includes/messages.html' %}
+    {% if action is None %}
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-body">
+            <form action = "?action=get_student" method = "POST">
+              {% csrf_token %}
+              <div class="row">
+                <div class="col-12">
+                  <h5 class="form-title">
+                    <span>Take Attendance</span>
+                  </h5>
+                </div>
+                <div class="col-12 col-sm-6">
+                  <label>Subject</label>
+                  <select class="form-control" name="subject_id" required>
+                    <option>Select Subject</option>
+                    {% for i in subject %}
+                    <option value="{{i.id}}">{{i.name}}</option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="col-12 col-sm-6">
+                  <label>Session Year</label>
+                  <select class="form-control" name="session_year_id" required>
+                    <option>Select Session</option>
+                    {% for i in session_year %}
+                    <option value="{{i.id}}">
+                      {{i.session_start}} To {{i.session_end}}
+                    </option>
+                    {% endfor %}
+                  </select>
+                </div>
+                <div class="col-12 mt-4">
+                  <button type="submit" class="btn btn-primary">Fetch Student</button>
+                </div>
+              </div>
+            </form>
+
+            {% else %}
+
+            <form action = {% url 'staff_save_attendance' %} method = "POST">
+                {% csrf_token %}
+                <div class="row">
+                  <div class="col-12">
+                    <h5 class="form-title">
+                      <span>Subject Information</span>
+                    </h5>
+                  </div>
+                 
+                  <div class="col-12 col-sm-6">
+                    <label>Subject</label>
+                    <select class="form-control" name="subject_id" required>
+                      
+                      <option value="{{get_subject.id}}">{{get_subject}}</option>
+                     
+                    </select>
+                  </div>
+
+
+                  <div class="col-12 col-sm-6">
+                    <label>Session</label>
+                    <select class="form-control" name="session_year_id" required>
+                      
+                      <option value="{{get_session_year.id}}">
+                        {{get_session_year}}
+                      </option>
+                      
+                    </select>
+                  </div>
+
+                  <div class="col-12 col-sm-6 mt-4">
+                    <div class="form-group">
+                      <label>Attendance Date</label>
+                      <input type="date" class="form-control" name = "attendance_date" required/>
+                    </div>
+                  </div>
+
+                 <!--Table-->
+                  <div class="col-12 mt-4">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="card card-table">
+                          <div class="card-body">
+                            <div class="table-responsive">
+                              <table id="table_id" class="table table-hover table-center mb-0">
+                                <thead>
+                                  <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th class="text-center">Attend <input type="checkbox" id="check-all" /></th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {% for i in students %}
+                                  <tr>
+                                    <td>{{i.id}}</td>
+                                    <td>{{i.admin.first_name}} {{i.admin.last_name}}</td>
+                                    <td class="text-center">
+                                     <input type="checkbox" name="student_id" value="{{i.id}}">
+                                    </td>
+                                  </tr>
+                                  {% endfor %}
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--EndTable-->
+                  <div class="col-md-12 mt-4 ">
+                    <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                  </div>
+                </div>
+              </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  {% endif %}
+  <script>
+    const checkAll = document.getElementById('check-all');
+    const checkboxes = document.querySelectorAll('input[name="student_id"]');
+    checkAll.addEventListener('change', () => {
+      checkboxes.forEach((checkbox) => {
+        checkbox.checked = checkAll.checked;
+      });
+    });
+  </script>
+{% endblock content %}

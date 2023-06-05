@@ -1,0 +1,52 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="content container-fluid">
+  <div class="page-header">
+    <div class="row align-items-center">
+      <div class="col">
+        <h3 class="page-title">View Assignment</h3>
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Lesson</a></li>
+          <li class="breadcrumb-item active">View Assignment</li>
+        </ul>
+      </div>
+      <div class="col-auto text-right float-right ml-auto">
+        <h4>Total Submission : {{submission_count}}/{{student_count}}</h4>
+      </div>
+    </div>
+  </div>
+
+  {% include 'includes/messages.html' %}
+
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card card-table">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table id="table_id" class="table table-hover table-center mb-0">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Submitted at</th>
+                  <th>File</th> 
+                </tr>
+              </thead>
+              <tbody>
+                {% for i in submission %}
+                <tr>
+                  <td>{{i.student_id}}</td>
+                  <td>{{i.created_at}}</td>
+                  <td><a class = "btn btn-info"  href="{{ i.submission_file.url }}">View File</a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

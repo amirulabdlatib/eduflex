@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if action is None %}
+
+<div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-body">
+          <form method = "POST" action ="?action=show_lesson">
+            {% csrf_token %}
+            <div class="col-12">
+              <h5 class="form-title">
+                <span>View Lesson</span>
+              </h5>
+            </div>
+  
+            {% include 'includes/messages.html' %}
+
+            </div>
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label>Subject</label>
+                <select class="form-control" name="subject_id" required>
+                  <option>Select Subject</option>
+                  {% for i in subjects %}
+                  <option value="{{i.id}}">{{i.name}}</option>
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <div class="col-12">
+              <button type="submit" class="btn btn-primary">
+                Show Lesson Material
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+  {% else %}
+
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-body">
+          <form>
+            {% csrf_token %}
+            <div class="col-12">
+              <h5 class="form-title">
+                <span>View Lesson Material</span>
+              </h5>
+            </div>
+  
+            {% include 'includes/messages.html' %}
+
+            </div>
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label>Subject</label>
+                <select class="form-control" name="subject_id" disabled required>
+                  
+                  <option value="{{i.id}}">{{get_subject}}</option>
+                  
+                </select>
+              </div>
+            </div>
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-sm-12">
+                      <div class="card card-table">
+                        <div class="card-body">
+                          <div class="table-responsive">
+                            <table id="table_id" class="table table-hover table-center mb-0 ">
+                              <thead>
+                                <tr>
+                                  <th>ID</th>
+                                  <th>Lesson Name</th>
+                                  <th>Notes</th>
+                                  <th>Assignment</th>
+                                  <th>Upload Assignment</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {% for i in lessons %}
+                                <tr>
+                                  <td>{{i.id}}</td>
+                                  <td>{{i.lesson_title}}</td>
+                                  <td>
+                                    {% if i.notes %}
+                                      <a class = "btn btn-dark"  href="{{ i.notes.url }}">Download Notes</a>
+                                      {% else %}
+                                      No notes available
+                                      {% endif %}
+                                  </td>
+                                  <td>
+                                    {% if i.assignment %}
+                                    <a class = "btn btn-success"  href="{{ i.assignment.url }}">Download Assignment</a>
+                                    {% else %}
+                                    No assignment available
+                                    {% endif %}
+                                </td>
+                                <td>
+                                  {% if i.assignment %}
+                                  <a class = "btn btn-success"  href="{% url 'student_edit_assignment' get_subject.id i.id%}">Send Assignment</a>
+                                  {% else %}
+                                  No work to be submitted 
+                                  {% endif %}
+                              </td>
+                                </tr>
+                                {% endfor %}
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% endif %}
+
+{% endblock content %}

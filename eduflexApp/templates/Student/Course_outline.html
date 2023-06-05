@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<table class="table table-hover">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Course ID</th>
+        <th scope="col">Course Name</th>
+        <th scope="col">Lecturer Name</th>
+        <th scope="col">Credit Hour</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        {% for i in subjects %}
+        <td>{{i.id}}</td>
+        <td>{{i.name}}</td>
+        <td>{{i.staff.admin.first_name}} {{i.staff.admin.last_name}}</td>
+        <td>3.0</td>
+      </tr>
+        {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock content %}

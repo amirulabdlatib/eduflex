@@ -1,0 +1,72 @@
+<!-- chart_staff.html -->
+
+<script>
+  $(document).ready(function() {
+      // Bar chart
+      if ($('#subject_students_chart').length > 0) {
+          var optionsBar = {
+              chart: {
+                  type: 'bar',
+                  height: 350,
+                  width: '100%',
+                  stacked: true,
+                  toolbar: {
+                      show: false
+                  },
+              },
+              dataLabels: {
+                  enabled: false
+              },
+              plotOptions: {
+                  bar: {
+                      columnWidth: '20%',
+                      distributed: true
+                  }
+              },
+              series: [{
+                  name: "Enrollments",
+                  color: '#19affb',
+                  data: {{ subject_enrollments|safe }},
+              }],
+              labels: {{ subject_names|safe }},
+              xaxis: {
+                  labels: {
+                      show: true,
+                      style: {
+                          fontSize: '12px',
+                      },
+                  },
+                  axisBorder: {
+                      show: false
+                  },
+                  axisTicks: {
+                      show: false
+                  },
+              },
+              yaxis: {
+                  axisBorder: {
+                      show: false
+                  },
+                  axisTicks: {
+                      show: false
+                  },
+                  labels: {
+                      style: {
+                          colors: '#777'
+                      }
+                  }
+              },
+              title: {
+                  text: 'Total Subject Enrollment',
+                  align: 'center',
+                  style: {
+                      fontSize: '18px'
+                  }
+              }
+          }
+
+          var chartBar = new ApexCharts(document.querySelector('#subject_students_chart'), optionsBar);
+          chartBar.render();
+      }
+  });
+</script>

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <div class="row">
+
+        {% for i in subjects %}
+        <div class="col-md-4 mb-3">
+            <div class="card" style="width: 18rem;">
+                <img class="card-img-top" src="{% static 'assets/img/note-taking.png' %}" alt="Card image cap">
+                <div class="card-body">
+                <h5 class="card-title">{{i.name}}</h5>
+                <p class="card-text">A note description is a brief summary of a note's contents or purpose.</p>
+                <a href="{% url 'view_notes' i.id %}" class="btn btn-primary w-100">View Notes</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock content %}

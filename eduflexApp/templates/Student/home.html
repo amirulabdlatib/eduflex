@@ -1,0 +1,215 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="page-header">
+  <div class="row">
+    <div class="col-sm-12">
+      <h3 class="page-title">Student</h3>
+      <ul class="breadcrumb">
+        <li class="breadcrumb-item active">Dashboard</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xl-3 col-sm-6 col-12 d-flex">
+    <div class="card bg-one w-100">
+      <div class="card-body">
+        <div
+          class="db-widgets d-flex justify-content-between align-items-center"
+        >
+          <div class="db-icon">
+            <i class="fas fa-user-graduate"></i>
+          </div>
+          <div class="db-info">
+            <h3>{{subject_total}}</h3>
+            <h6>Total Subject</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-3 col-sm-6 col-12 d-flex">
+    <div class="card bg-two w-100">
+      <div class="card-body">
+        <div
+          class="db-widgets d-flex justify-content-between align-items-center"
+        >
+          <div class="db-icon">
+            <i class="fas fa-chalkboard-teacher"></i>
+          </div>
+          <div class="db-info">
+            <h3>{{notes_total}}</h3>
+            <h6>Total Notes</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-3 col-sm-6 col-12 d-flex">
+    <div class="card bg-three w-100">
+      <div class="card-body">
+        <div
+          class="db-widgets d-flex justify-content-between align-items-center"
+        >
+          <div class="db-icon">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+          <div class="db-info">
+            <h3>{{submission_total}}/{{received_assignment_total}}</h3>
+            <h6>Submission Made</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-3 col-sm-6 col-12 d-flex">
+    <div class="card bg-four w-100">
+      <div class="card-body">
+        <div
+          class="db-widgets d-flex justify-content-between align-items-center"
+        >
+          <div class="db-icon">
+            <i class="fas fa-book"></i>
+          </div>
+          <div class="db-info">
+            <h3>{{unread_notification_total}}</h3>
+            <h6>Unread Notification</h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Student Info -->
+<div class="row">
+  <div class="col-md-8">
+    <div class="card mb-4 shadow-lg">
+      <div class="card-body">
+        <h4 class="card-title text-center">Student Profile</h4>
+
+        {% if student.gender == 'Male' %}
+        <div
+          style="display: flex; justify-content: center; align-items: center"
+        >
+          <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+          <lottie-player
+            src="https://assets9.lottiefiles.com/packages/lf20_NODCLWy3iX.json"
+            background="transparent"
+            speed="1"
+            style="width: 200px; height: 200px"
+            loop
+            autoplay
+          ></lottie-player>
+        </div>
+        <hr />
+
+        {% else %}
+        <div
+          style="display: flex; justify-content: center; align-items: center"
+        >
+          <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+          <lottie-player
+            src="https://assets10.lottiefiles.com/packages/lf20_dWELSK5KyE.json"
+            background="transparent"
+            speed="1"
+            style="width: 300px; height: 300px"
+            loop
+            autoplay
+          ></lottie-player>
+        </div>
+        <hr />
+
+        {% endif %}
+
+        <div class="row">
+          <div class="col-sm-3">
+            <p class="mb-0">Full Name</p>
+          </div>
+          <div class="col-sm-9">
+            <p class="text-muted mb-0">
+              {{student.admin.first_name}} {{student.admin.last_name}}
+            </p>
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-sm-3">
+            <p class="mb-0">Email</p>
+          </div>
+          <div class="col-sm-9">
+            <p class="text-muted mb-0">{{student.admin.email}}</p>
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-sm-3">
+            <p class="mb-0">Gender</p>
+          </div>
+          <div class="col-sm-9">
+            <p class="text-muted mb-0">{{student.gender}}</p>
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-sm-3">
+            <p class="mb-0">Course</p>
+          </div>
+          <div class="col-sm-9">
+            <p class="text-muted mb-0">{{student.course_id}}</p>
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-sm-3">
+            <p class="mb-0">Session</p>
+          </div>
+          <div class="col-sm-9">
+            <p class="text-muted mb-0">{{student.session_year_id}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div style="display: flex; justify-content: center; align-items: center">
+      <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+      <lottie-player
+        src="https://assets10.lottiefiles.com/packages/lf20_3xtpb0bw.json"
+        background="transparent"
+        speed="1"
+        style="width: 300px; height: 300px"
+        loop
+        autoplay
+      ></lottie-player>
+    </div>
+    <div style="display: flex; justify-content: center; align-items: center">
+      <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+      <lottie-player
+        src="https://assets10.lottiefiles.com/packages/lf20_ZSqxIVbhtx.json"
+        background="transparent"
+        speed="1"
+        style="width: 300px; height: 300px"
+        loop
+        autoplay
+      ></lottie-player>
+    </div>
+  </div>
+</div>
+<!-- End of Student Info -->
+
+<!-- Chart -->
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card card-chart">
+      <div class="card-body">
+        <div id="subject_marks_chart"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- End of chart -->
+
+{% include 'includes/chart_student.html' %} {% endblock content %}
