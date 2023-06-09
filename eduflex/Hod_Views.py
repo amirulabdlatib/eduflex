@@ -23,7 +23,7 @@ def HOME(request):
         'student_gender_female':student_gender_female,
     }
 
-    return render(request,'Hod/Home.html',context)
+    return render(request,'Hod/home.html',context)
 
 
 @login_required(login_url='login/')
