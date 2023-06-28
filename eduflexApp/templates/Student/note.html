@@ -1,5 +1,5 @@
-{% extends 'base.html' %} {% block content %} {% include
-'includes/messages.html'%} {% for j in subject %}
+{% extends 'base.html' %} {% block content %} 
+{% include 'includes/messages.html'%} {% for j in subject %}
 <div class="col-auto text-right float-right ml-auto">
   <a href="{% url 'add_notes' j.id %}" class="btn btn-success"
     ><i class="fas fa-plus"></i
@@ -14,14 +14,19 @@
         <div class="card-body">
           <h5 class="card-title">{{i.topic}}</h5>
           <p class="card-text">{{i.content}}</p>
-          <p class="card-text mt-3">Created at: {{i.created_at}}</p>
-          <div class="d-flex justify-content-end align-items-center">
-            <a
-              href="{% url 'delete_notes' j.id i.id %}"
-              onclick="return confirm('Are you sure to delete?');"
-              class="btn btn-danger"
-              >Delete</a
-            >
+          
+          <div class="d-flex justify-content-center align-items-center row">
+            <div class="col-md-6">
+              <a href="{% url 'student_edit_note' j.id i.id %}" class="btn btn-info">Update</a>
+            </div>
+            <div class="col-md-6 mt-2">
+              <a
+                href="{% url 'delete_notes' j.id i.id %}"
+                onclick="return confirm('Are you sure to delete?');"
+                class="btn btn-danger"
+                >Delete</a
+              >
+            </div>
           </div>
         </div>
       </div>

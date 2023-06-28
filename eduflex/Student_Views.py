@@ -321,6 +321,47 @@ def DELETE_NOTES(request,sub_id,note_id):
     return redirect('view_notes',sub_id)
 
 
+@login_required(login_url='login/')
+def EDIT_NOTE(request,sub_id,note_id):
+
+    student = Student.objects.get(admin = request.user.id)
+    note = Notes.objects.get(id = note_id)
+    subject = Subject.objects.get(id = sub_id)
+
+    context = {
+        'student':student,
+        'note':note,
+        'subject':subject
+
+    }
+
+    return render(request,'Student/edit_note.html',context=context)
+
+@login_required(login_url='login/')
+def UPDATE_NOTE(request):
+    if request.method == "POST":
+        note_id = request.POST.get('note_id')
+        subject_id = request.POST.get('subject_id')
+        student_id = request.POST.get('student_id')
+        topic = request.POST.get('topic')
+        content = request.POST.get('content')
+
+        student = Student.objects.get(id = student_id)
+        subject = Subject.objects.get(id = subject_id)
+
+        note = Notes(
+            id = note_id,
+            student_id = student,
+            subject_id = subject,
+            topic = topic,
+            content = content
+        )
+
+        note.save()
+        messages.success(request,'Note are successfully updated')
+        return redirect('view_notes',subject_id)
+
+
 def pdf_create_result(request):
 
     student = Student.objects.get(admin = request.user.id)

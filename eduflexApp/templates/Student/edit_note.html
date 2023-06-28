@@ -4,7 +4,7 @@
 
 <div class="container">
     <h1>Mini Notebook</h1>
-    <form action="#" method="POST">
+    <form action="{% url 'student_update_note' %}" method="POST">
       {% csrf_token %}
       <div class="form-group">
         <label for="noteTitle">Title</label>
@@ -14,6 +14,7 @@
           id="noteTitle"
           placeholder="Enter title"
           name="topic"
+          value="{{note.topic}}"
         />
       </div>
   
@@ -25,7 +26,7 @@
           rows="5"
           placeholder="Enter content"
           name="content"
-        ></textarea>
+        >{{note.content}}</textarea>
       </div>
       <input
         type="text"
@@ -43,8 +44,15 @@
         hidden
         required
       />
-  
-      <button type="submit" class="btn btn-success w-100">Add note</button>
+      <input
+      type="text"
+      class="form-control"
+      name="note_id"
+      value="{{note.id}}"
+      hidden
+      required
+    />
+      <button type="submit" class="btn btn-info w-100">Update note</button>
     </form>
 
 {% endblock content %}
