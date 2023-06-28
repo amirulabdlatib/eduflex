@@ -189,8 +189,6 @@ class Notes(models.Model):
     subject_id = models.ForeignKey(Subject,on_delete=models.CASCADE)
     topic = models.CharField(max_length=100)
     content = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True,null = True)
-    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.topic
